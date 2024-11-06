@@ -1,3 +1,5 @@
+//Interfaz para definir métodos base que deben implementarse en repositorios
+
 class IRepository {
     obtenerPorId(id) {
         throw new Error("Método 'obtenerPorId()' no implementado");

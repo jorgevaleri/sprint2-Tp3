@@ -1,3 +1,5 @@
+//CONFIGURA LA APLICACION EXPRESS Y LOS MIDDLEWARE
+
 import express from 'express';
 import {connectDB} from './config/dbConfig.mjs';
 import superHeroRoutes from './routes/superHeroRoutes.mjs';

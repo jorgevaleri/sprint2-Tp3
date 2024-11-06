@@ -1,3 +1,5 @@
+//DEFINE LAS OPERACIONES DE CONSULTA PARA EL MODELO DE SUPERHEROE
+
 import SuperHero from '../models/SuperHero.mjs';
 import IRepository from './IRepository.mjs';
 
@@ -11,13 +13,26 @@ class SuperHeroRepository extends IRepository {
     }
 
     async buscarPorAtributo(atributo, valor) {
-        const query = {[atributo]: new RegExp(valor, 'i')};
+        const query = { [atributo]: new RegExp(valor, 'i') };
         return await SuperHero.find(query);
     }
 
     async obtenerMayoresDe30() {
-        return await SuperHero.find({edad: {$gt: 30}, planetaOrigen: 'Tierra', poderes: {$size: {$gte: 2}}
+        return await SuperHero.find({
+            edad: { $gt: 30 },
+            planetaOrigen: 'Tierra',
+            poderes: { $exists: true, $not: { $size: 0 } }  // Verifica que 'poderes' existe y no está vacío
         });
+    }
+
+    //Función para modificar un superhéroe
+    async modificarSuperheroe(id, datosActualizados) {
+        return await SuperHero.findByIdAndUpdate(id, datosActualizados, { new: true });
+    }
+
+    // Función para eliminar un superhéroe
+    async eliminarSuperheroe(id) {
+        return await SuperHero.findByIdAndDelete(id);
     }
 }
 
